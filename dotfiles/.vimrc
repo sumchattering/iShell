@@ -49,6 +49,9 @@ set title
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+" Fix backspace
+set backspace=indent,eol,start
+
 " Strip trailing whitespace (,ss)
 function! StripWhitespace ()
   let save_cursor = getpos(".")
