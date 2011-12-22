@@ -1,0 +1,73 @@
+# Create a new directory and enter it
+function md() {
+  mkdir -p "$@" && cd "$@"
+}
+
+# Test if HTTP compression (RFC 2616 + SDCH) is enabled for a given URL.
+# Send a fake UA string for sites that sniff it instead of using the Accept-Encoding header. (Looking at you, ajax.googleapis.com!)
+function httpcompression() {
+  encoding="$(curl -LIs -H 'User-Agent: Mozilla/5 Gecko' -H 'Accept-Encoding: gzip,deflate,compress,sdch' "$1" | grep '^Content-Encoding:')" && echo "$1 is encoded using ${encoding#* }" || echo "$1 is not using any encoding"
+}
+
+function json() {
+  python -mjson.tool <<< "$*" | pygmentize -l javascript
+}
+
+# All the dig info
+function digga() {
+  dig +nocmd "$1" any +multiline +noall +answer
+}
+
+#show the git root
+gitroot() {
+  git rev-parse --show-toplevel
+}
+
+#go to the git root
+gitgoroot() {
+  cd $(git rev-parse --show-toplevel)
+}
+
+#symbolicate crash
+function desym
+{
+    /Developer/Platforms/iPhoneOS.platform/Developer/Library/PrivateFrameworks/DTDeviceKit.framework/Versions/A/Resources/symbolicatecrash -A -v $1 | more
+}
+
+#quit apps
+quit () {
+        for app in $*; do
+                osascript -e 'quit app "'$app'"'
+        done
+}
+
+#show man in preview
+pman() { man -t "${1}" | open -f -a Preview; }
+
+#show machine information
+function mach()
+{
+    echo -e "\nMachine information:" ; uname -a
+    echo -e "\nUsers logged on:" ; w -h
+    echo -e "\nCurrent date :" ; date
+    echo -e "\nMachine status :" ; uptime
+    echo -e "\nMemory status :" ; free
+    echo -e "\nFilesystem status :"; df -h
+}
+
+#clear list files and go to bottom
+function ll ()
+{
+    clear;
+    tput cup 0 0;
+    ls -Gla;
+    tput cup 40 0;
+}
+
+#get all $PATH commands from file and them to the global $PATH
+exportpaths()
+{
+    cat $1 | grep -i "export path=" > temp.exports
+    if [ -s temp.exports ]; then source temp.exports; fi;
+    rm temp.exports
+}

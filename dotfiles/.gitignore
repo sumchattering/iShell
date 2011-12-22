@@ -1,0 +1,8 @@
+.DS_Store
+xcuserdata
+*.xcworkspace
+*.perspective*
+*.pyc
+.dynamicpaths
+*.orig
+*.*.*

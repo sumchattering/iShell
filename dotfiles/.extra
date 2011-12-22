@@ -1,0 +1,13 @@
+#Personal Settings
+
+#personal git settings
+git config --global user.name "Sumeru Chatterjee"
+git config --global user.email sumeru@ufl.edu
+
+#Path to Shell
+export shell=/iShell
+
+#path to dotfiles
+export dotfiles=/iShell/dotfiles
+
+
