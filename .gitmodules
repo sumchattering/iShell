@@ -1,0 +1,3 @@
+[submodule "./OSX-Shell"]
+	path = ./OSX-Shell
+	url = git@github.com:nodemaker/Shell.git
